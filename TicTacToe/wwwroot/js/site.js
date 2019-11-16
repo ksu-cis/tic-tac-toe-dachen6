@@ -3,7 +3,7 @@
 
 // Write your Javascript code.
 
-var currentTurn = "X";
+/*var currentTurn = "X";
 
 document.getElementById("turn").innerText = "It is Player " + currentTurn + "'s turn"; 
 
@@ -64,4 +64,37 @@ function checkForWin() {
     //check for diagonals
 
     return false;
+}*/
+var squares = document.querySelectorAll("#checkers-board> .square");
+for (var i = 0; i < squares.length; i++)
+{
+    squares[i].addEventListener('dragenter', onDragEnter);
+    squares[i].addEventListener('dragleavr', onDragLeave);
+    squares[i].addEventListener('dragstart', onDragStart);
+    squares[i].addEventListener('dragend', onDragEnd);
+}
+
+function onDragEnter(event) {
+
+    if (event.target.classList.contains("checker")) return;
+    if (event.target.classList.contains("red")) return;
+    if (event.target.children.length>0) return;
+    event.target.style.backgroundColor = "gold";
+    document.getElementById("toX").value = event.target.dataset.x;
+    document.getElementById("toY").value = event.target.dataset.y;
+
+
+}
+
+function onDragLeave(event){
+    event.target.style.backgroundColor = null;
+
+
+}
+function onDragStart(event) {
+    document.getElementById("fromX").value = event.target.dataset.x;
+    document.getElementById("fromY").value = event.target.dataset.y;
+}
+function onDragEnd(event) {
+    document.getElementById("checkers-form").submit();
 }
